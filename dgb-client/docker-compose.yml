@@ -1,0 +1,17 @@
+version: "3.1"
+
+services:
+
+  dgb-client:
+    image: ${DOCKER_IMAGE_NAME:-dgb-client}
+    container_name: ${DOCKER_CONTAINER_NAME:-dgb-client}
+    hostname: ${DOCKER_HOSTNAME:-dgb-client}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - ${DASHBOARD_PORT}:8000
+    environment:
+      REST_URL: "${REST_URL:-https://dgb.ikna.io}"
+    command: ["nginx", "-g", "daemon off;"]
+    restart: always
